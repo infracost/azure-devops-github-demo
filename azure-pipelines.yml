@@ -1,0 +1,22 @@
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: infracost
+    condition: eq(variables['Build.Reason'], 'PullRequest')
+    jobs: 
+      - job: infracost
+        displayName: Run Infracost
+        steps:
+          - checkout: self
+          - bash: |
+              curl -sL https://github.com/infracost/infracost/releases/latest/download/infracost-linux-amd64.tar.gz | tar xz -C /tmp
+              sudo mv /tmp/infracost-linux-amd64 /usr/bin/infracost
+              curl -sL -o infracost_diff.sh https://raw.githubusercontent.com/infracost/infracost/azure_devops/scripts/ci/diff.sh
+              chmod +x infracost_diff.sh
+              ./infracost_diff.sh
+            displayName: Run Infracost diff
+            env:
+              SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+              INFRACOST_API_KEY: $(INFRACOST_API_KEY)
+              path: terraform
