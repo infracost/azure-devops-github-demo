@@ -1,6 +1,11 @@
 pool:
   vmImage: ubuntu-latest
 
+
+variables:
+- group: KeyVaultVariableGroups
+
+
 stages:
   - stage: infracost
     condition: eq(variables['Build.Reason'], 'PullRequest')
@@ -20,8 +25,8 @@ stages:
             env:
               INFRACOST_API_KEY: $(INFRACOST_API_KEY)
               GITHUB_TOKEN: $(GITHUB_TOKEN)
-              ARM_CLIENT_ID: $(ARM_CLIENT_ID)
-              ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
-              ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
-              ARM_TENANT_ID: $(ARM_TENANT_ID)
-              path: terraform
+              ARM_SUBSCRIPTION_ID: $(kv-arm-subscription-id)
+              ARM_CLIENT_ID:       $(kv-arm-client-id)
+              ARM_CLIENT_SECRET:   $(kv-arm-client-secret)
+              ARM_TENANT_ID:       $(kv-arm-tenant-id)
+              path: terraform        
