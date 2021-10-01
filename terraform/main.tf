@@ -8,7 +8,7 @@ resource "azurerm_linux_virtual_machine" "my_vm" {
   resource_group_name = "fake_resource_group"
   location            = "eastus"
 
-  size           = "Basic_A3" # <<<<< Try changing this to Basic_A4 to compare the costs
+  size           = "Basic_A4" # <<<<< Try changing this to Basic_A4 to compare the costs
   admin_username = "fakeuser"
   admin_password = "fakepass"
 
