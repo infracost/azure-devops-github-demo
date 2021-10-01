@@ -45,7 +45,7 @@ resource "azurerm_app_service_plan" "elastic" {
 
 resource "azurerm_function_app" "my_function" {
   name                       = "hello-world"
-  location                   = "EP3" # <<<<< Try changing this to EP3 to compare the costs
+  location                   = "australiaeast" # <<<<< Try changing this to EP3 to compare the costs
   resource_group_name        = "fake_resource_group"
   app_service_plan_id        = azurerm_app_service_plan.elastic.id
   storage_account_name       = "fakestorageaccountname"
