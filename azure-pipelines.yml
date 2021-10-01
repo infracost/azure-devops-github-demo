@@ -25,4 +25,4 @@ stages:
               ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
               ARM_TENANT_ID: $(ARM_TENANT_ID)
               path: terraform
-              post_condition: update
+              post_condition: { "update": true }
