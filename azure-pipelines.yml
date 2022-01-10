@@ -17,6 +17,7 @@ stages:
               curl -sL -o infracost_diff.sh https://raw.githubusercontent.com/infracost/infracost/feat/update-is-default/scripts/ci/diff.sh
               chmod +x infracost_diff.sh
               ./infracost_diff.sh
+              env
             displayName: Run Infracost diff
             env:
               INFRACOST_API_KEY: $(INFRACOST_API_KEY)
