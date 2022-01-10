@@ -3,7 +3,7 @@ pool:
 
 stages:
   - stage: infracost
-    condition: eq(variables['Build.Reason'], 'PullRequest')
+    #condition: eq(variables['Build.Reason'], 'PullRequest')
     jobs: 
       - job: infracost
         displayName: Run Infracost
