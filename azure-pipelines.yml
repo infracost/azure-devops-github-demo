@@ -17,12 +17,13 @@ stages:
               #curl -sL -o infracost_diff.sh https://raw.githubusercontent.com/infracost/infracost/feat/update-is-default/scripts/ci/diff.sh
               #chmod +x infracost_diff.sh
               #./infracost_diff.sh
+              env
               git clone https://github.com/infracost/compost
               cd compost
               npm ci
               npm run build
               npm link
-              compost autodetect update --body="alistair test"
+              DEBUG=* compost autodetect update --body="alistair test"
             displayName: Run Infracost diff
             env:
               INFRACOST_API_KEY: $(INFRACOST_API_KEY)
