@@ -18,7 +18,7 @@ stages:
               #chmod +x infracost_diff.sh
               #./infracost_diff.sh
               env
-              git clone https://github.com/infracost/compost
+              git clone -b feat/support-azure-devops-gh-commit https://github.com/infracost/compost
               cd compost
               npm ci
               npm run build
