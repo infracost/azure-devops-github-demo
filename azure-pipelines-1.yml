@@ -14,6 +14,10 @@ jobs:
       - task: TerraformInstaller@0
         displayName: Install Terraform
 
+      - bash: terraform plan init
+        displayName: Terraform init
+        workingDirectory: $(TF_ROOT)
+
       - bash: terraform plan -out tfplan.binary
         displayName: Terraform plan
         workingDirectory: $(TF_ROOT)
@@ -27,5 +31,5 @@ jobs:
         inputs:
           apiKey: $(apiKey)
 
-      - bash: infracost breakdown --path=plan.json --format=json --out-file=/tmp/infracost.json
+      - bash: infracost breakdown --path=$(TF_ROOT)/plan.json --format=json --out-file=/tmp/infracost.json
         displayName: Run Infracost
