@@ -14,7 +14,7 @@ jobs:
       - task: TerraformInstaller@0
         displayName: Install Terraform
 
-      - bash: terraform plan init
+      - bash: terraform init
         displayName: Terraform init
         workingDirectory: $(TF_ROOT)
 
