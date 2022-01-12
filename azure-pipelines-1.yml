@@ -29,9 +29,3 @@ jobs:
 
       - bash: infracost breakdown --path=plan.json --format=json --out-file=/tmp/infracost.json
         displayName: Run Infracost
-
-      - task: InfracostComment@0
-        displayName: Post the comment
-        inputs:
-          path: /tmp/infracost.json
-          behavior: update # Create a single comment and update it. See https://github.com/infracost/infracost-azure-devops#comment-options for other options
