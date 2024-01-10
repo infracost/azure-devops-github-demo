@@ -122,7 +122,7 @@ jobs:
               --request POST \
               --header "Content-Type: application/json" \
               --header "X-API-Key: $(infracostApiKey)" \
-              --data "{ \"query\": \"mutation {updatePullRequestStatus( url: \\\"$(Build.Repository.Name)/pulls/${PR_ID}\\\", status: MERGED )}\" }" \
+              --data "{ \"query\": \"mutation {updatePullRequestStatus( url: \\\"$(Build.Repository.Uri)/pulls/${PR_ID}\\\", status: MERGED )}\" }" \
               "https://dashboard.api.infracost.io/graphql";
           else
             echo "Nothing to do as the commit message did not contain a merged PR ID."
