@@ -61,27 +61,27 @@ jobs:
       - bash: |
           cd /tmp/base
           infracost breakdown --path=. \
-                              --format=json \
-                              --out-file=/tmp/infracost-base.json
+            --format=json \
+            --out-file=/tmp/infracost-base.json
         displayName: Generate Infracost cost estimate baseline
 
       # Generate an Infracost diff and save it to a JSON file.
       - bash: |
           cd -
           infracost diff --path=. \
-                        --format=json \
-                        --compare-to=/tmp/infracost-base.json \
-                        --out-file=/tmp/infracost.json
+            --format=json \
+            --compare-to=/tmp/infracost-base.json \
+            --out-file=/tmp/infracost.json
         displayName: Generate Infracost diff
 
       # Add a cost estimate comment to a Azure Repos pull request.
       - bash: |
           infracost comment github \
-            --path /tmp/infracost.json \
-            --github-token $(githubToken) \
-            --pull-request $(System.PullRequest.PullRequestId) \
-            --repo $(Build.Repository.Name) \
-            --behavior update
+            --path=/tmp/infracost.json \
+            --github-token=$(githubToken)\
+            --pull-request=$(System.PullRequest.PullRequestId) \
+            --repo=$(Build.Repository.Name) \
+            --behavior=update
         displayName: Post PR comment
 
   # The following job is needed when using Infracost Cloud
@@ -116,8 +116,8 @@ jobs:
 
       - bash: |
           infracost breakdown --path=. \
-                          --format=json \
-                          --out-file=/tmp/infracost.json --log-level=debug
+            --format=json \
+            --out-file=/tmp/infracost.json
 
           infracost upload --path=/tmp/infracost.json || echo "Always pass main branch runs even if there are policy failures"
         displayName: 'Run Infracost on default branch and update Infracost Cloud'
