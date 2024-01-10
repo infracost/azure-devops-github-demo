@@ -112,8 +112,10 @@ jobs:
           apiKey: $(infracostApiKey)
 
       - bash: |
-          PATTERN="Merged PR ([0-9]+):"
-          if [[ "$(Build.SourceVersionMessage)" =~ $PATTERN ]]; then
+          PATTERN1="Merge pull request #([0-9]+) from"
+          PATTERN2=".* \(#([0-9]+)\)"
+
+          if [[ "$(Build.SourceVersionMessage)" =~ $PATTERN1 || "$(Build.SourceVersionMessage)" =~ $PATTERN2 ]]; then
             PR_ID=${BASH_REMATCH[1]}
             echo "Updating status of $PR_ID"
             curl \
