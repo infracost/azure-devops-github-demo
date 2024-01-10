@@ -8,13 +8,18 @@ resource "azurerm_linux_virtual_machine" "my_vm" {
   resource_group_name = "fake_resource_group"
   location            = "eastus"
 
-  size           = "Basic_A2" # <<<<< Try changing this to Basic_A4 to compare the costs
-  admin_username = "fakeuser"
-  admin_password = "fakepass"
+  size                = "Basic_A2" # <<<<< Try changing this to Basic_A4 to compare the costs
+
+  tags = {
+    Environment = "production"
+    Service = "web-app"
+  }
 
   network_interface_ids = [
     "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Network/networkInterfaces/fakenic",
   ]
+  admin_username = "fakeuser"
+  admin_password = "fakepass"
 
   os_disk {
     caching              = "ReadWrite"
@@ -29,7 +34,7 @@ resource "azurerm_linux_virtual_machine" "my_vm" {
   }
 }
 
-resource "azurerm_app_service_plan" "elastic" {
+resource "azurerm_app_service_plan" "my_app" {
   name                = "api-appserviceplan-pro"
   location            = "eastus"
   resource_group_name = "fake_resource_group"
@@ -37,9 +42,14 @@ resource "azurerm_app_service_plan" "elastic" {
   reserved            = false
 
   sku {
-    tier     = "Basic" 
-    size     = "EP2" 
-    capacity = 1
+    tier     = "PremiumV2"
+    size     = "P1v2"
+    capacity = 2
+  }
+
+  tags = {
+    Environment = "Prod"
+    Service = "web-app"
   }
 }
 
@@ -50,4 +60,9 @@ resource "azurerm_function_app" "my_function" {
   app_service_plan_id        = azurerm_app_service_plan.elastic.id
   storage_account_name       = "fakestorageaccountname"
   storage_account_access_key = "fake_storage_account_access_key"
+
+  tags = {
+    Environment = "Prod"
+    Service = "api"
+  }
 }
