@@ -10,6 +10,8 @@ trigger:
     - master
 
 variables:
+  - name: system.debug
+    value: true
   # If you use private modules you'll need this env variable to use
   # the same ssh-agent socket value across all steps.
   - name: SSH_AUTH_SOCK
@@ -76,9 +78,9 @@ jobs:
       - bash: |
           infracost comment github \
             --path /tmp/infracost.json \
-            --github-token=$(githubToken) \
-            --pull-request=$(System.PullRequest.PullRequestId) \
-            --repo=$(Build.Repository.Name) \
+            --github-token $(githubToken) \
+            --pull-request $(System.PullRequest.PullRequestId) \
+            --repo $(Build.Repository.Name) \
             --behavior update
         displayName: Post PR comment
 
