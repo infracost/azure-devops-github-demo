@@ -79,7 +79,7 @@ jobs:
           infracost comment github \
             --path=/tmp/infracost.json \
             --github-token=$(githubToken)\
-            --pull-request=$(System.PullRequest.PullRequestId) \
+            --pull-request=$(System.PullRequest.PullRequestNumber) \
             --repo=$(Build.Repository.Name) \
             --behavior=update
         displayName: Post PR comment
