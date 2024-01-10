@@ -114,6 +114,7 @@ jobs:
       - bash: |
           echo SYSTEM_PULLREQUEST_SOURCEBRANCH=$SYSTEM_PULLREQUEST_SOURCEBRANCH
           echo BUILD_SOURCEBRANCHNAME=$BUILD_SOURCEBRANCHNAME
+          echo BUILD_REPOSITORYNAME=$BUILD_REPOSITORYNAME
 
           PATTERN1="Merge pull request #([0-9]+) from"
           PATTERN2=".* \(#([0-9]+)\)"
@@ -125,7 +126,7 @@ jobs:
               --request POST \
               --header "Content-Type: application/json" \
               --header "X-API-Key: $(infracostApiKey)" \
-              --data "{ \"query\": \"mutation {updatePullRequestStatus( url: \\\"$(Build.Repository.Name)/pullrequest/${PR_ID}\\\", status: MERGED )}\" }" \
+              --data "{ \"query\": \"mutation {updatePullRequestStatus( url: \\\"$(Build.Repository.Name)/pulls/${PR_ID}\\\", status: MERGED )}\" }" \
               "https://dashboard.api.infracost.io/graphql";
           else
             echo "Nothing to do as the commit message did not contain a merged PR ID."
@@ -133,7 +134,7 @@ jobs:
         displayName: 'Update PR status in Infracost Cloud'
 
       - bash: |
-          infracost breakdown --path=. \
+          INFRACOST_VCS_BRANCH=master infracost breakdown --path=. \
             --format=json \
             --out-file=/tmp/infracost.json
 
