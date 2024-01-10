@@ -113,7 +113,7 @@ jobs:
         displayName: 'Update PR status in Infracost Cloud'
 
       - bash: |
-          INFRACOST_VCS_BRANCH=master infracost breakdown --path=. \
+          infracost breakdown --path=. \
                           --format=json \
                           --out-file=/tmp/infracost.json --log-level=debug
 
