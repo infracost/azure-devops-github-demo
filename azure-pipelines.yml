@@ -10,8 +10,6 @@ trigger:
     - master
 
 variables:
-  - name: system.debug
-    value: true
   # If you use private modules you'll need this env variable to use
   # the same ssh-agent socket value across all steps.
   - name: SSH_AUTH_SOCK
@@ -22,7 +20,7 @@ variables:
   # - name: INFRACOST_TERRAFORM_CLOUD_TOKEN
   #   value: $(tfcToken)
   # - name: INFRACOST_TERRAFORM_CLOUD_HOST
-  #   value: app.terraform.io # Change this if you're using Terraform Enterprise
+  #   value: app.terraform.io
 
 jobs:
   # Run Infracost on pull requests
