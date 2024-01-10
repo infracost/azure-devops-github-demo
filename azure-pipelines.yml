@@ -112,10 +112,6 @@ jobs:
           apiKey: $(infracostApiKey)
 
       - bash: |
-          echo SYSTEM_PULLREQUEST_SOURCEBRANCH=$SYSTEM_PULLREQUEST_SOURCEBRANCH
-          echo BUILD_SOURCEBRANCHNAME=$BUILD_SOURCEBRANCHNAME
-          echo BUILD_REPOSITORYNAME=$BUILD_REPOSITORYNAME
-
           PATTERN1="Merge pull request #([0-9]+) from"
           PATTERN2=".* \(#([0-9]+)\)"
 
